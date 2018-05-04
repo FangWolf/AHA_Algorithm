@@ -1,10 +1,49 @@
 #include<stdio.h>
-
 struct student {
     char name[21];
     char score;
 };//创建一个结构体
+int a[101], n;
+void quicksort(int left, int right) {
+    int i, j, t, temp;
+    if (left > right)
+        return;
+    temp = a[left];
+    i = left;
+    j = right;
+    while (i != j) {
+        //右往左
+        while (a[j] >= temp && i < j)
+            j--;
+        //左往右
+        while (a[i] <= temp && i < j)
+            i++;
+        //交换位置
+        if (i < j) {
+            t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+        }
+    }
+    //将基准数归位
+    a[left] = a[i];
+    a[i] = temp;
+
+    quicksort(left, i - 1);
+    quicksort(i + 1, right);
+}
+
 int main() {
+    //快速排序
+    int i, j, t;
+    //读入数据
+    scanf("%d", &n);
+    for (i = 1; i <= n; i++)
+        scanf("%d", &a[i]);
+    quicksort(1, n); //快速排序调用
+    //输出排序后的结果
+    for (i = 1; i <= n; i++)
+        printf("%d ", a[i]);
 
     /*struct student a[100],t;
     int i, j, n;
